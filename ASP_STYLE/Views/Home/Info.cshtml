@@ -1,0 +1,71 @@
+﻿@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Info</title>
+    <link rel="stylesheet" type="text/css"
+          href="~/css/custom.css" />
+</head>
+<body>
+    <p class="egyszavas">Tesztoldal</p>
+    <p class="tobbszavas">Ez az én oldalam</p>
+
+    <div id="kiemelt">
+        <h5>Egy érdekes oldal</h5>
+        <p>Nézd meg</p>
+        <a href="http://index.hu">Katt ide</a>
+    </div>
+
+    <span class="gomb">Alma</span>
+    <span class="gomb">Körte</span>
+    <span class="gomb">Banán</span>
+
+    <br />
+    <br />
+    <hr />
+
+    Írd ide a neved: 
+    <input id="text_name" type="text" />
+    <button onclick="save_name()">Mentés</button>
+
+    <div id="displaynames">
+
+    </div>
+
+    <script>
+        //ez itt JS kód
+        function save_name()
+        {
+            var text_name = document.getElementById("text_name");
+
+            var city = text_name.value;
+
+            //aszinkron kérés
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    var answer = this.responseText;
+                    if (answer == "ok") {
+                        var displaynames = document.getElementById("displaynames");
+                        displaynames.innerHTML += "<p>" + text_name.value + "</p>";
+                    }
+                    else {
+                        window.alert("Ez a város nem engedélyezett!");
+                    }
+                }
+            };
+
+            xhttp.open("GET", "/Home/CheckCity?cityname=" + city, true);
+            xhttp.send();
+
+            
+        }
+    </script>
+
+</body>
+</html>

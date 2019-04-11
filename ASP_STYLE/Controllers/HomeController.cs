@@ -15,6 +15,28 @@ namespace ASP_STYLE.Controllers
             return View();
         }
 
+        [HttpGet]
+        public string CheckCity(string cityname)
+        {
+            string[] city =
+            {
+                "Budapest", "Szeged", "Győr", "Miskolc", "Pécs", "Debrecen"
+            };
+            if (city.Contains(cityname))
+            {
+                return "ok";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+
+        public IActionResult Info()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
